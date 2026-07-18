@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/logo.png" alt="ADAS Bounty Run logo" width="420" />
+
 # ADAS Bounty Run
 ### Drive Smart. Save Lives. Earn the Bounty.
 
