@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ADAS Bounty Run</string>
+    <string name="tagline">Drive Smart. Save Lives. Earn the Bounty.</string>
+    <string name="signature">Signature — Ashutosh Ranjan</string>
+
+    <string name="menu_start">START GAME</string>
+    <string name="menu_country">Country</string>
+    <string name="menu_environment">Environment</string>
+    <string name="menu_vehicle">Vehicle</string>
+    <string name="menu_adas">ADAS Setup</string>
+    <string name="menu_weather">Weather</string>
+    <string name="menu_time">Time</string>
+    <string name="menu_mode">Mode</string>
+
+    <string name="disclaimer">ADAS assists the driver. It does not replace attentive and responsible driving.</string>
+
+    <!-- Controls -->
+    <string name="btn_left">◄</string>
+    <string name="btn_right">►</string>
+    <string name="btn_accel">GAS</string>
+    <string name="btn_brake">BRAKE</string>
+
+    <!-- Voice alert lines (also spoken via TTS) -->
+    <string name="va_pedestrian">Pedestrian detected</string>
+    <string name="va_collision">Collision risk ahead</string>
+    <string name="va_brake">Apply brakes</string>
+    <string name="va_lane">Lane departure detected</string>
+    <string name="va_blindspot">Vehicle in blind spot</string>
+    <string name="va_attention">Driver attention required</string>
+    <string name="va_aeb">Automatic emergency braking activated</string>
+    <string name="va_police">Police pursuit initiated</string>
+    <string name="va_bounty_low">Bounty critically low</string>
+    <string name="va_bonus">Safe driving bonus awarded</string>
+</resources>
