@@ -27,6 +27,7 @@
 10. [Where & how the Unity engine fits](#10-where--how-the-unity-engine-fits)
 11. [UI/UX & animation snippets](#11-uiux--animation-snippets)
 12. [Threading & performance model](#12-threading--performance-model)
+13. [Responsive scaling & device support (phone / tablet / AAOS)](#13-responsive-scaling--device-support-phone--tablet--aaos)
 
 ---
 
@@ -729,6 +730,70 @@ flowchart LR
 - **`dt` clamp** (`if (dt > 0.05f) dt = 0.05f`) prevents tunnelling after a stall.
 - **Object pooling** + cached `Paint`s + distance‑culled draw keep the hot path allocation‑free
   (spec §28). Target ~60 FPS with graceful degradation.
+
+---
+
+## 13. Responsive scaling & device support (phone / tablet / AAOS)
+
+The app targets **any landscape Android display**, from small phones to large tablets and
+**Android Automotive OS (AAOS 12+)** head units, via two complementary mechanisms.
+
+### 13.1 Canvas `uiScale` (world + HUD)
+`Renderer.draw` computes a single scale and works in a **virtual coordinate space**, so
+proportional world geometry is untouched while fixed HUD/sprite sizes track the device:
+
+```kotlin
+uiScale = ((height / REFERENCE_HEIGHT).coerceIn(0.75f, 2.2f) * formFactorScale)   // REFERENCE_HEIGHT = 1080
+c.save(); c.scale(uiScale, uiScale)
+w = width / uiScale; h = height / uiScale   // proportional coords cancel the scale; literals magnify by it
+```
+
+- **Density independence** comes for free: higher‑resolution screens have more pixels →
+  larger `height` → larger `uiScale`, so HUD text/panels stay physically consistent instead of
+  shrinking on high‑DPI panels.
+- A 1080‑tall landscape phone maps to `uiScale ≈ 1.0`, preserving the original tuning.
+- The world (road, perspective, entity placement) already used proportional maths and is
+  unaffected by the transform — only the previously fixed‑pixel HUD and sprites now scale.
+
+### 13.2 Form‑factor multiplier (device class)
+`GameView.computeFormFactorScale()` picks a multiplier from the device class so larger screens
+and in‑car displays get bigger, more glanceable UI:
+
+```kotlin
+when {
+    isAutomotive -> 1.30f   // AAOS head units (FEATURE_AUTOMOTIVE): driver glance distance
+    sw >= 720    -> 1.25f   // large tablets / big head units
+    sw >= 600    -> 1.12f   // 7"+ tablets
+    else         -> 1.0f    // phones
+}
+```
+
+### 13.3 Layout & touch‑target buckets
+Control clusters use `@dimen` values with **`values/`, `values-sw600dp/`, `values-sw720dp/`**
+buckets, so steering/pedal buttons and margins grow on tablets and automotive screens
+(88→116→140 dp steering; 96→124→150 dp pedals). The menu/report screens are `dp`‑based inside
+scrollable, gravity‑aligned containers and reflow on any size.
+
+### 13.4 AAOS specifics (Android 12+)
+- `AndroidManifest.xml` declares `android.hardware.type.automotive` and
+  `android.hardware.touchscreen` as **`required="false"`**, plus `resizeableActivity="true"`,
+  so the APK installs and runs on AAOS head units and in multi‑window/foldable modes.
+- `res/xml/automotive_app_desc.xml` registers the app for AAOS. It is **deliberately not
+  distraction‑optimised**: a driving game must only be usable while **parked**, and AAOS blocks
+  non‑distraction‑optimised activities while driving — exactly matching the app’s safety ethos
+  (spec §26). Full "drive‑time" car UX (CarUxRestrictions, templated screens) would require the
+  Android for Cars App Library and is intentionally out of scope for the game surface.
+- `GameActivity` handles `screenLayout|smallestScreenSize|density|uiMode|screenSize` config
+  changes without recreation; the `SurfaceView` re‑reads its dimensions each frame, so a
+  resize (docking, split‑screen, external display) rescales instantly.
+
+### 13.5 Net result
+| Device class | World view | HUD / sprites | Touch targets |
+|---|---|---|---|
+| Phone (any DPI) | ✅ proportional | ✅ resolution‑scaled | ✅ dp |
+| Tablet (sw ≥ 600/720) | ✅ | ✅ +12–25% | ✅ enlarged dimens |
+| AAOS 12+ head unit (parked) | ✅ | ✅ +30% | ✅ largest dimens |
+| Foldable / multi‑window | ✅ rescales on resize | ✅ | ✅ |
 
 ---
 

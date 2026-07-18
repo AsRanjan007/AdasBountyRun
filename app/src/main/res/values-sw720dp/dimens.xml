@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Large tablets & Android Automotive head units (bigger glanceable targets) -->
+<resources>
+    <dimen name="ctrl_steer_size">140dp</dimen>
+    <dimen name="ctrl_pedal_size">150dp</dimen>
+    <dimen name="ctrl_edge_margin">56dp</dimen>
+    <dimen name="ctrl_bottom_margin">44dp</dimen>
+    <dimen name="ctrl_gap">32dp</dimen>
+    <dimen name="util_btn_height">60dp</dimen>
+    <dimen name="util_top_margin">104dp</dimen>
+</resources>
