@@ -67,10 +67,30 @@ class GameActivity : AppCompatActivity() {
         findViewById<ToggleButton>(R.id.btnSensor).setOnCheckedChangeListener { _, checked ->
             gameView.setSensorOverlay(checked)
         }
-        findViewById<ToggleButton>(R.id.btnVoice).apply {
-            isChecked = true
-            setOnCheckedChangeListener { _, checked -> voice.enabled = checked }
+
+        val voiceBtn = findViewById<ToggleButton>(R.id.btnVoice)
+        voiceBtn.isChecked = true
+        voiceBtn.alpha = 1f
+        // If TTS is unavailable on the device, tell the driver instead of failing silently.
+        voice.onReady = { ok ->
+            runOnUiThread {
+                if (!ok) {
+                    voiceBtn.alpha = 0.5f
+                    Toast.makeText(this, "Text-to-speech not available on this device", Toast.LENGTH_LONG).show()
+                }
+            }
         }
+        voiceBtn.setOnCheckedChangeListener { _, checked ->
+            voice.enabled = checked
+            voiceBtn.alpha = if (checked) 1f else 0.5f
+            if (checked) {
+                voice.speakNow("Voice alerts on")
+                Toast.makeText(this, "Voice alerts ON", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Voice alerts OFF", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         findViewById<Button>(R.id.btnPause).setOnClickListener { showPauseDialog() }
     }
 
