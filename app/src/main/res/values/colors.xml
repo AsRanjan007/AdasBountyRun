@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand palette derived from the ADAS Bounty Run logo -->
+    <color name="brand_dark">#0A0E14</color>
+    <color name="brand_dark_2">#111722</color>
+    <color name="brand_steel">#C7CDD4</color>
+    <color name="brand_blue">#2E9BE6</color>
+    <color name="brand_blue_deep">#1567B0</color>
+    <color name="brand_orange">#F39019</color>
+    <color name="brand_orange_deep">#C96A05</color>
+    <color name="brand_green_sign">#2E7D32</color>
+
+    <!-- HUD warning colours (spec section 16) -->
+    <color name="hud_safe">#31D06B</color>
+    <color name="hud_caution">#F5D020</color>
+    <color name="hud_high_risk">#F39019</color>
+    <color name="hud_danger">#F0362C</color>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="translucent_panel">#B3111722</color>
+</resources>

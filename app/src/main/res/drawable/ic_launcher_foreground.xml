@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Adaptive-icon foreground: the shield emblem centred within the 108dp safe zone -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group android:scaleX="0.42" android:scaleY="0.42"
+        android:translateX="30.6" android:translateY="30.6">
+        <!-- Shield outer -->
+        <path android:fillColor="#C7CDD4"
+            android:pathData="M60,6 L106,22 L106,60 C106,88 86,107 60,116 C34,107 14,88 14,60 L14,22 Z" />
+        <path android:fillColor="#0F1622"
+            android:pathData="M60,13 L100,27 L100,60 C100,84 83,101 60,109 C37,101 20,84 20,60 L20,27 Z" />
+        <!-- Wi-Fi arcs -->
+        <path android:strokeColor="#2E9BE6" android:strokeWidth="4" android:strokeLineCap="round"
+            android:fillColor="#00000000" android:pathData="M48,34 A18,18 0 0 1 72,34" />
+        <path android:fillColor="#2E9BE6" android:pathData="M60,46 m-3,0 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0" />
+        <!-- SUV front -->
+        <path android:fillColor="#1B2634"
+            android:pathData="M39,78 L43,58 C44,54 47,52 51,52 L69,52 C73,52 76,54 77,58 L81,78 L81,88 C81,90 79,91 77,91 L43,91 C41,91 39,90 39,88 Z" />
+        <path android:fillColor="#38B6FF" android:pathData="M42,72 L51,74 L51,78 L42,77 Z" />
+        <path android:fillColor="#38B6FF" android:pathData="M78,72 L69,74 L69,78 L78,77 Z" />
+    </group>
+</vector>

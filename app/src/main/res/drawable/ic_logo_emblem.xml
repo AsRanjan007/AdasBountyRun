@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Branded emblem for ADAS Bounty Run, inspired by the project logo:
+  a steel shield housing an SUV front, Wi-Fi/connectivity arc and ADAS
+  detection brackets for a pedestrian and a vehicle.
+  Vector drawables cannot render text, so the "ADAS BOUNTY RUN" wordmark
+  is composed with styled views in the splash/menu layouts. To use the
+  exact raster artwork instead, drop it at res/drawable-nodpi/logo.png
+  and point the ImageViews at @drawable/logo (see docs/ASSET_INTEGRATION.md).
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="240"
+    android:viewportHeight="240">
+
+    <!-- Shield outer (steel) -->
+    <path
+        android:fillColor="#C7CDD4"
+        android:pathData="M120,12 L212,44 L212,120 C212,176 172,214 120,232 C68,214 28,176 28,120 L28,44 Z" />
+    <!-- Shield inner (dark screen) -->
+    <path
+        android:fillColor="#0F1622"
+        android:pathData="M120,26 L200,54 L200,120 C200,168 166,202 120,218 C74,202 40,168 40,120 L40,54 Z" />
+
+    <!-- Connectivity arcs (blue Wi-Fi) -->
+    <path
+        android:strokeColor="#2E9BE6"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M96,62 A34,34 0 0 1 144,62" />
+    <path
+        android:strokeColor="#2E9BE6"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M106,74 A20,20 0 0 1 134,74" />
+    <path
+        android:fillColor="#2E9BE6"
+        android:pathData="M120,86 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" />
+
+    <!-- SUV front silhouette -->
+    <path
+        android:fillColor="#1B2634"
+        android:pathData="M78,150 L86,116 C88,108 94,104 102,104 L138,104 C146,104 152,108 154,116 L162,150 L162,168 C162,172 159,175 155,175 L85,175 C81,175 78,172 78,168 Z" />
+    <!-- Windshield -->
+    <path
+        android:fillColor="#0C121C"
+        android:pathData="M96,118 L100,110 L140,110 L144,118 L140,132 L100,132 Z" />
+    <!-- Headlights (blue) -->
+    <path android:fillColor="#38B6FF" android:pathData="M84,140 L100,144 L100,152 L84,150 Z" />
+    <path android:fillColor="#38B6FF" android:pathData="M156,140 L140,144 L140,152 L156,150 Z" />
+    <!-- Grille -->
+    <path android:fillColor="#0C121C" android:pathData="M108,140 L132,140 L132,158 L108,158 Z" />
+
+    <!-- Left ADAS bracket (pedestrian detection) -->
+    <path android:fillColor="#2E9BE6" android:pathData="M52,96 L52,86 L62,86 L62,90 L56,90 L56,96 Z" />
+    <path android:fillColor="#2E9BE6" android:pathData="M52,120 L52,130 L62,130 L62,126 L56,126 L56,120 Z" />
+    <!-- Right ADAS bracket (vehicle detection) -->
+    <path android:fillColor="#2E9BE6" android:pathData="M188,96 L188,86 L178,86 L178,90 L184,90 L184,96 Z" />
+    <path android:fillColor="#2E9BE6" android:pathData="M188,120 L188,130 L178,130 L178,126 L184,126 L184,120 Z" />
+</vector>

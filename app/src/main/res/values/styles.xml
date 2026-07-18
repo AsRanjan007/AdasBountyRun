@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MenuLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">@color/brand_steel</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingVertical">6dp</item>
+    </style>
+
+    <style name="MenuValue">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">@color/brand_blue</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MenuSpinner">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:backgroundTint">@color/brand_blue</item>
+        <item name="android:popupBackground">@color/brand_dark_2</item>
+    </style>
+</resources>
