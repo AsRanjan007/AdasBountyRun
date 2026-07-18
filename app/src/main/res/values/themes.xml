@@ -13,9 +13,11 @@
     </style>
 
     <!-- Splash uses the branded window background so the logo shows immediately -->
-    <style name="Theme.AdasBountyRun.Splash" parent="Theme.AdasBountyRun">
-        <item name="android:windowBackground">@color/brand_dark</item>
-        <item name="android:windowNoTitle">true</item>
+    <style name="Theme.AdasBountyRun.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/brand_dark</item>
+        <!-- Use the same icon as your launcher or a specific splash icon -->
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.AdasBountyRun</item>
     </style>
 
 </resources>
