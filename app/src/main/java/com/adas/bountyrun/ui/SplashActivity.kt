@@ -20,6 +20,8 @@ import com.adas.bountyrun.R
 class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Handle the splash screen transition for Android 12+
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         hideSystemBars()
