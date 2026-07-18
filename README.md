@@ -99,6 +99,7 @@ docs/           Architecture, developer guide, player guide, asset integration
 
 ## 6. Documentation
 
+- **[docs/TECHNICAL_ARCHITECTURE.md](docs/TECHNICAL_ARCHITECTURE.md)** — complete technical reference: design patterns, dependency injection, data‑flow / class / sequence diagrams, internal API details, Unity‑mapping, and UI/UX + animation snippets.
 - **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** — system & data‑flow diagrams, class responsibilities, interfaces, sequences.
 - **[docs/DEVELOPER_GUIDE.md](docs/DEVELOPER_GUIDE.md)** — how to extend countries/vehicles/ADAS/scoring, tuning, testing, Unity‑migration notes.
 - **[docs/PLAYER_GUIDE.md](docs/PLAYER_GUIDE.md)** — controls, modes, scoring, grades.
