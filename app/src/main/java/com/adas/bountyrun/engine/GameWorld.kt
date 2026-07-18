@@ -4,6 +4,7 @@ import com.adas.bountyrun.adas.AdasEvent
 import com.adas.bountyrun.adas.AdasManager
 import com.adas.bountyrun.adas.WarningSeverity
 import com.adas.bountyrun.config.GameSetup
+import com.adas.bountyrun.core.BountyEvent
 import com.adas.bountyrun.core.DetectKind
 import com.adas.bountyrun.core.GameSession
 import com.adas.bountyrun.core.SafetyEvent
@@ -46,7 +47,38 @@ class GameWorld(val setup: GameSetup) {
     private var laneCooldown = 0f
     private var cooperateLatched = false
 
-    private var lastReportSnapshot = false
+    // ---- Bounty feedback (issues #4/#5): banner + floating scores + flash ----
+    /** A rising "+300 / −500" number near the car. */
+    class ScorePopup {
+        var active = false
+        var delta = 0
+        var age = 0f
+        var critical = false
+        var laneX = 0f
+    }
+    val scorePopups = Array(8) { ScorePopup() }
+
+    /** Top-centre coaching banner shown on every bounty change. */
+    var bountyReason: String = ""
+        private set
+    var bountyTip: String = ""
+        private set
+    var bountyDelta: Int = 0
+        private set
+    var bountyPositive: Boolean = true
+        private set
+    var bountyCritical: Boolean = false
+        private set
+    var bountyBannerTimer: Float = 0f
+        private set
+    /** Signed screen-flash intensity: >0 green (reward), <0 red (penalty). */
+    var bountyFlash: Float = 0f
+        private set
+
+    init {
+        // Route every score change to the on-screen feedback system.
+        session.bounty.setListener { _, ev -> onBountyChanged(ev) }
+    }
 
     fun startLevel() {
         player.reset()
@@ -54,8 +86,11 @@ class GameWorld(val setup: GameSetup) {
         police.reset()
         session.report.clear()
         for (e in pool.all) e.active = false
+        for (pop in scorePopups) pop.active = false
         incidentMessage = ""
         incidentPrevention = ""
+        bountyBannerTimer = 0f
+        bountyFlash = 0f
     }
 
     /** True while the driver is behaving safely (used for wanted decay). */
@@ -106,6 +141,64 @@ class GameWorld(val setup: GameSetup) {
         session.evaluate(vehicleDisabled = player.isDisabled, policeCaught = caught)
 
         if (incidentDisplayTimer > 0f) incidentDisplayTimer -= dt else { incidentMessage = "" }
+
+        // Tick bounty feedback (banner fade, floating scores, flash decay).
+        if (bountyBannerTimer > 0f) bountyBannerTimer -= dt
+        if (bountyFlash != 0f) {
+            bountyFlash *= (1f - dt * 2.4f)
+            if (abs(bountyFlash) < 0.02f) bountyFlash = 0f
+        }
+        for (pop in scorePopups) if (pop.active) {
+            pop.age += dt
+            if (pop.age > POPUP_LIFETIME) pop.active = false
+        }
+    }
+
+    /** Called by the BountyManager listener on every score change (issues #4/#5). */
+    private fun onBountyChanged(ev: BountyEvent) {
+        bountyReason = ev.reason
+        bountyCritical = ev.critical
+        bountyPositive = !ev.critical && ev.delta >= 0
+        bountyDelta = ev.delta
+        bountyTip = coachingTip(ev)
+        bountyBannerTimer = BANNER_LIFETIME
+        bountyFlash = if (bountyPositive) 1f else -1f
+
+        // Spawn a floating score near the player's lane.
+        val pop = scorePopups.firstOrNull { !it.active } ?: scorePopups.minByOrNull { it.age }!!
+        pop.active = true
+        pop.age = 0f
+        pop.delta = ev.delta
+        pop.critical = ev.critical
+        pop.laneX = player.laneX
+    }
+
+    /** Short, human coaching line shown under the banner to encourage safe driving. */
+    private fun coachingTip(ev: BountyEvent): String {
+        val r = ev.reason.lowercase()
+        if (ev.critical) return "A life was lost. Slow down and stay fully alert."
+        return if (ev.delta >= 0) when {
+            "pedestrian" in r -> "You protected a pedestrian — excellent!"
+            "cyclist" in r -> "Cyclist kept safe — well done!"
+            "animal" in r -> "Animal avoided — great awareness!"
+            "emergency braking" in r -> "AEB helped you stop — keep a safe gap!"
+            "safe distance" in r || "distance" in r -> "Good following distance — keep it up!"
+            "blind" in r -> "You heeded the blind-spot alert — smart!"
+            "route completed" in r -> "Level cleared safely — superb driving!"
+            "perfect" in r -> "Flawless run — you're an ADAS Safety Expert!"
+            "safe stop" in r -> "Cooperating is the right call — nicely done."
+            else -> "Nice, safe driving — keep it up!"
+        } else when {
+            "pedestrian" in r -> "Never hit people — brake early next time!"
+            "cyclist" in r -> "Give cyclists room — slow down!"
+            "animal" in r -> "Watch for animals — ease off the throttle!"
+            "speeding" in r -> "Slow down — respect the speed limit!"
+            "collision" in r -> "Keep your distance to avoid crashes!"
+            "police" in r -> "Pull over safely — fleeing costs bounty!"
+            "carriageway" in r || "lane" in r -> "Stay in your lane!"
+            "emergency vehicle" in r -> "Always make way for emergency vehicles!"
+            else -> "Drive safely to protect your bounty!"
+        }
     }
 
     private fun updateEntities(dt: Float, nowMs: Long) {
@@ -221,5 +314,10 @@ class GameWorld(val setup: GameSetup) {
         for (e in pool.all) if (e.active) list.add(e)
         for (u in police.units) if (u.active) list.add(u)
         return list
+    }
+
+    companion object {
+        private const val POPUP_LIFETIME = 1.6f
+        private const val BANNER_LIFETIME = 3.0f
     }
 }
