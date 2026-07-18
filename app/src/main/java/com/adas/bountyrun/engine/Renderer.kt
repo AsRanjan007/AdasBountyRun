@@ -23,10 +23,25 @@ class Renderer {
 
     var showSensorOverlay = false
 
+    /**
+     * Form-factor multiplier set once by [GameView] from the device class
+     * (phone / tablet / Android Automotive). Combined with the resolution-based
+     * scale so the HUD and sprites stay physically consistent everywhere.
+     */
+    var formFactorScale = 1f
+
+    /** Last computed UI scale (exposed for debugging/telemetry). */
+    var uiScale = 1f
+        private set
+
     private val p = Paint(Paint.ANTI_ALIAS_FLAG)
     private val text = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.WHITE }
     private val roadPath = Path()
 
+    // Work in a VIRTUAL coordinate space (real pixels / uiScale). Proportional
+    // layout (centreX, roadHalfPx…) is unaffected by the scale, while the fixed
+    // HUD/sprite literals grow or shrink with the device — one transform, no
+    // per-literal maths. See draw().
     private var w = 0f
     private var h = 0f
     private var horizonY = 0f
@@ -42,7 +57,18 @@ class Renderer {
     }
 
     fun draw(c: Canvas, world: GameWorld, width: Int, height: Int, dt: Float) {
-        w = width.toFloat(); h = height.toFloat()
+        // Resolution-based scale (denser/taller screens -> more pixels -> larger
+        // HUD) × form-factor scale. A 1080-tall landscape phone maps to ~1.0 so
+        // existing tuning is preserved; everything else scales proportionally.
+        uiScale = ((height / REFERENCE_HEIGHT).coerceIn(MIN_SCALE, MAX_SCALE) * formFactorScale)
+            .coerceIn(MIN_SCALE, MAX_SCALE * 1.4f)
+
+        c.save()
+        c.scale(uiScale, uiScale)
+        // Virtual dimensions: proportional coords still fill the screen, fixed
+        // literals are magnified by uiScale after the canvas transform.
+        w = width / uiScale
+        h = height / uiScale
         horizonY = h * 0.34f
         bottomY = h * 1.02f
         centerX = w * 0.5f
@@ -58,6 +84,14 @@ class Renderer {
         drawHud(c, world)
         if (showSensorOverlay) drawSensorOverlay(c, world)
         drawBannersAndOverlays(c, world)
+        c.restore()
+    }
+
+    companion object {
+        /** Landscape height (px) that maps to a 1.0 UI scale (tuning baseline). */
+        private const val REFERENCE_HEIGHT = 1080f
+        private const val MIN_SCALE = 0.75f
+        private const val MAX_SCALE = 2.2f
     }
 
     // ---------- World ----------

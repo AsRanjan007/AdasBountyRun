@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Default (phone) control sizes. Overridden in values-sw600dp / -sw720dp
+     so touch targets grow on tablets and Android Automotive head units. -->
+<resources>
+    <dimen name="ctrl_steer_size">88dp</dimen>
+    <dimen name="ctrl_pedal_size">96dp</dimen>
+    <dimen name="ctrl_edge_margin">24dp</dimen>
+    <dimen name="ctrl_bottom_margin">24dp</dimen>
+    <dimen name="ctrl_gap">16dp</dimen>
+    <dimen name="util_btn_height">40dp</dimen>
+    <dimen name="util_top_margin">90dp</dimen>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Android Automotive OS (AAOS 12+) app descriptor.
+
+  Intentionally NOT marked distraction-optimised: ADAS Bounty Run is an
+  interactive driving game and must only be usable while the vehicle is parked.
+  On AAOS the platform blocks non-distraction-optimised activities while driving,
+  which is exactly the desired behaviour and matches the app's safety ethos
+  ("ADAS assists the driver. It does not replace attentive and responsible
+  driving."). The app still installs and runs on AAOS head units (parked),
+  where the larger UI scale (see GameView.computeFormFactorScale) applies.
+-->
+<automotiveApp>
+    <uses name="template" />
+</automotiveApp>

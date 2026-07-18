@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 7"+ tablets -->
+<resources>
+    <dimen name="ctrl_steer_size">116dp</dimen>
+    <dimen name="ctrl_pedal_size">124dp</dimen>
+    <dimen name="ctrl_edge_margin">40dp</dimen>
+    <dimen name="ctrl_bottom_margin">32dp</dimen>
+    <dimen name="ctrl_gap">24dp</dimen>
+    <dimen name="util_btn_height">52dp</dimen>
+    <dimen name="util_top_margin">96dp</dimen>
+</resources>

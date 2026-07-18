@@ -1,6 +1,7 @@
 package com.adas.bountyrun.engine
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Canvas
 import android.os.Handler
 import android.os.Looper
@@ -43,8 +44,29 @@ class GameView @JvmOverloads constructor(
     private var levelReported = false
     private var gameOverReported = false
 
+    /** True on Android Automotive OS head units (spec: AAOS 12+ infotainment). */
+    val isAutomotive: Boolean by lazy {
+        context.packageManager.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE)
+    }
+
     init {
         holder.addCallback(this)
+        renderer.formFactorScale = computeFormFactorScale()
+    }
+
+    /**
+     * Device-class multiplier for the HUD/sprite scale. Larger screens and
+     * automotive head units get bigger, more glanceable UI. Combined with the
+     * resolution-based scale inside [Renderer.draw].
+     */
+    private fun computeFormFactorScale(): Float {
+        val sw = context.resources.configuration.smallestScreenWidthDp
+        return when {
+            isAutomotive -> 1.30f        // AAOS: driver glance distance, bigger targets
+            sw >= 720 -> 1.25f           // large tablets / big head units
+            sw >= 600 -> 1.12f           // 7"+ tablets
+            else -> 1.0f                 // phones
+        }
     }
 
     fun initWorld(setup: GameSetup) {
