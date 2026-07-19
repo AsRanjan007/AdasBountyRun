@@ -3,7 +3,9 @@
     "rootNamespace": "ABR.Editor",
     "references": [
         "ABR.Core",
-        "ABR.Vehicle"
+        "ABR.Vehicle",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.Universal.Runtime"
     ],
     "includePlatforms": [
         "Editor"
