@@ -4,11 +4,11 @@ Consolidated per the deliverable rule: *where automation is impossible, state it
 explicitly — never silently skip.*
 
 ## One-time project setup (step 1)
-1. **Open in Unity** 2022.3 LTS (or Unity 6). `ProjectSettings/ProjectVersion.txt`
-   pins 2022.3.40f1 — adjust if you use another. On first open Unity resolves the
-   packages in `Packages/manifest.json`.
-   - // ASSUMPTION: package versions match your Editor. If a version fails to
-     resolve, open Window ▸ Package Manager and let it pick the compatible one.
+1. **Open in Unity 2022.3.62f3 LTS** (your version). `ProjectSettings/ProjectVersion.txt`
+   is pinned to it, and `Packages/manifest.json` pins the packages that ship with that
+   editor (URP 14.0.12, Input System 1.7.0, Cinemachine 2.9.7, AI Navigation 1.1.6).
+   - // ASSUMPTION: those versions resolve on 2022.3.62f3. If Package Manager offers a
+     patch update, accept it — none of the step-1/2 code depends on a specific patch.
 2. **Color space**: Project Settings ▸ Player ▸ Other Settings ▸ **Color Space = Linear**
    (URP expects linear; cannot be reliably set from a menu script pre-first-import).
 3. Run **`ABR ▸ Setup ▸ 1 · Scaffold URP + Configs`**. This creates and assigns the URP
