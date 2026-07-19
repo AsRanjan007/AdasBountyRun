@@ -27,6 +27,13 @@ crucially **`com.unity.modules.vehicles`** (WheelCollider/WheelHit). If you ever
 `CS1069: WheelCollider … forwarded to UnityEngine.VehiclesModule`, that module is
 disabled: add it back here, or Window ▸ Package Manager ▸ *Built-in* ▸ enable **Vehicles**.
 
+## Assembly definition references
+Because the project uses `.asmdef` files, package assemblies are **not** auto-referenced.
+`ABR.Editor.asmdef` explicitly references `Unity.RenderPipelines.Universal.Runtime` and
+`Unity.RenderPipelines.Core.Runtime` (the scaffold script creates the URP asset). If you add
+new code that uses a package type and hit `CS0234 … namespace does not exist`, add that
+package's assembly to the relevant `.asmdef`'s **Assembly Definition References**.
+
 ## Step 2 — vehicle physics
 5. Run **`ABR ▸ Setup ▸ 3 · Build Physics Test Scene`** (it also builds & wires the rig).
 6. Press **Play** and validate feel. Tune `_GeneratedConfigs/DefaultVehicleProfile`
