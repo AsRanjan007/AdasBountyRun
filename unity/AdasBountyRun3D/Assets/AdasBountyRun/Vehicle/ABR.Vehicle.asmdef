@@ -1,0 +1,11 @@
+{
+    "name": "ABR.Vehicle",
+    "rootNamespace": "ABR.Vehicle",
+    "references": [
+        "ABR.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "autoReferenced": true
+}

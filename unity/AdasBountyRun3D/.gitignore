@@ -1,0 +1,18 @@
+# Unity generated / machine-local (never commit)
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]serSettings/
+[Mm]emoryCaptures/
+.vs/
+.gradle/
+*.csproj
+*.sln
+*.user
+*.apk
+*.aab
+*.unitypackage
+# Keep meta files, Assets, Packages, ProjectSettings

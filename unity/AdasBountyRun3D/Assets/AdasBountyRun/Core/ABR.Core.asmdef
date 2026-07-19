@@ -1,0 +1,9 @@
+{
+    "name": "ABR.Core",
+    "rootNamespace": "ABR.Core",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "autoReferenced": true
+}
