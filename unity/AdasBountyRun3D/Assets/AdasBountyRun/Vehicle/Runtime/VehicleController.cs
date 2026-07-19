@@ -44,6 +44,11 @@ namespace ABR.Vehicle
         public SurfaceType CurrentSurface { get; private set; } = SurfaceType.Asphalt;
         public float AppliedGrip => _appliedGrip;
 
+        /// <summary>Current steering as -1..1 (for the cockpit steering-wheel visual).</summary>
+        public float SteerNormalized =>
+            (profile != null && profile.maxSteerAngle > 0.01f)
+                ? Mathf.Clamp(_currentSteer / profile.maxSteerAngle, -1f, 1f) : 0f;
+
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();

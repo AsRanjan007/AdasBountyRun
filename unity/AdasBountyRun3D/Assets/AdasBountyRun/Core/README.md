@@ -9,6 +9,6 @@ this; it depends on nothing (except UnityEngine for `Vector3`/`MonoBehaviour`).
 - `IHapticsService` — impact + surface rumble.
 - `IVehicleTelemetry` — read-only vehicle state for HUD/audio/ADAS.
 - `SurfaceType`, `SurfaceSample` — pure data.
-- `EnvironmentState` (holds wetness), `ChaseCamera` (damped follow + speed FOV).
+- `EnvironmentState` (holds wetness), `DriverCamera` (cockpit + chase, C toggles).
 
 **Automatic:** nothing to bake. **Manual:** none. Pure code layer.

@@ -40,6 +40,7 @@ namespace ABR.Vehicle
             if (environment != null)
                 Line($"WETNESS {environment.Wetness:0.00}   (Z/X to change)");
             Line("Drive: W/S throttle-brake · A/D steer · Space handbrake");
+            Line("Camera: C toggles cockpit / chase");
         }
 
         private void Update()

@@ -51,16 +51,17 @@ namespace ABR.Editor
             MakePotholeField(new Vector3(0f, 0f, 40f));
             MakeSpeedBreaker(new Vector3(0f, 0f, 25f));
 
-            // Chase camera.
-            var camGo = new GameObject("ChaseCamera");
-            var cam = camGo.AddComponent<Camera>();
+            // Driver camera (cockpit by default; C toggles chase).
+            var camGo = new GameObject("DriverCamera");
+            camGo.AddComponent<Camera>();
             camGo.AddComponent<AudioListener>();
-            var chase = camGo.AddComponent<ChaseCamera>();
+            var driverCam = camGo.AddComponent<DriverCamera>();
 
             // Vehicle rig at the spawn point.
-            var vehicle = VehicleRigBuilderEditor.BuildVehicle(new Vector3(0f, 0.6f, 0f));
+            var vehicle = VehicleRigBuilderEditor.BuildVehicle(new Vector3(0f, 0.7f, 0f));
             var body = vehicle.GetComponent<Rigidbody>();
-            chase.SetTarget(vehicle.transform, body);
+            var cockpitAnchor = vehicle.transform.Find("CockpitAnchor");
+            driverCam.Setup(vehicle.transform, body, cockpitAnchor, DriverCamera.Mode.Cockpit);
 
             // Wire the feel HUD's environment reference.
             var hud = vehicle.GetComponent<FeelDebugHud>();
