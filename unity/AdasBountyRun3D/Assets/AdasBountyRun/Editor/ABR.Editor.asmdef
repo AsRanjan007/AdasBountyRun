@@ -1,0 +1,14 @@
+{
+    "name": "ABR.Editor",
+    "rootNamespace": "ABR.Editor",
+    "references": [
+        "ABR.Core",
+        "ABR.Vehicle"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "autoReferenced": true
+}

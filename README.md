@@ -32,6 +32,11 @@ real, testable code rather than placeholders.
 
 > **ADAS assists the driver. It does not replace attentive and responsible driving.**
 
+> **🚗 3D Unity track (new):** a parallel, ground‑up realistic 3D rebuild in Unity/URP is
+> being started under [`unity/AdasBountyRun3D/`](unity/AdasBountyRun3D/README.md) — beginning
+> with the vehicle‑physics FEEL gate and surface‑coupled road‑condition handling. It's a
+> separate project and does not affect this native Android build.
+
 ## 2. Implemented features (MVP, spec §22)
 
 | Area | Status |
