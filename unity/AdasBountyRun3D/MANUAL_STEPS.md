@@ -21,6 +21,12 @@ explicitly — never silently skip.*
    (or *Input Manager (Old)*). The step-2 input sources use the legacy `Input` class for
    fast FEEL iteration. // ASSUMPTION flagged in the input source files.
 
+## Built-in modules
+`Packages/manifest.json` explicitly lists the built-in modules the project needs —
+crucially **`com.unity.modules.vehicles`** (WheelCollider/WheelHit). If you ever see
+`CS1069: WheelCollider … forwarded to UnityEngine.VehiclesModule`, that module is
+disabled: add it back here, or Window ▸ Package Manager ▸ *Built-in* ▸ enable **Vehicles**.
+
 ## Step 2 — vehicle physics
 5. Run **`ABR ▸ Setup ▸ 3 · Build Physics Test Scene`** (it also builds & wires the rig).
 6. Press **Play** and validate feel. Tune `_GeneratedConfigs/DefaultVehicleProfile`
