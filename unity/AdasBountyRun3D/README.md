@@ -26,7 +26,7 @@ are **not** built yet; their decoupling interfaces already exist so they slot in
 
 ## Quick start
 ```
-1. Open unity/AdasBountyRun3D/ in Unity 2022.3 LTS (or Unity 6).
+1. Open unity/AdasBountyRun3D/ in Unity 2022.3.62f3 LTS.
 2. Set Player ▸ Color Space = Linear, Active Input Handling = Both (see MANUAL_STEPS.md).
 3. Menu:  ABR ▸ Setup ▸ 1 · Scaffold URP + Configs
 4. Menu:  ABR ▸ Setup ▸ 3 · Build Physics Test Scene

@@ -5,7 +5,7 @@ self-contained and validated.** Vehicle FEEL is the gate.
 
 | # | Module | Status | Runs automatically | You must do (see MANUAL_STEPS.md) |
 |---|--------|--------|--------------------|-----------------------------------|
-| 1 | **Project scaffold** | ✅ delivered | `ABR ▸ Setup ▸ 1` creates URP asset + config assets; asmdefs + folders in repo | Open project in Unity 2022 LTS/Unity 6; set Color Space = Linear; confirm URP assigned |
+| 1 | **Project scaffold** | ✅ delivered | `ABR ▸ Setup ▸ 1` creates URP asset + config assets; asmdefs + folders in repo | Open project in Unity 2022.3.62f3 LTS; set Color Space = Linear; confirm URP assigned |
 | 2 | **Vehicle physics** (FEEL gate) | ✅ delivered | `ABR ▸ Setup ▸ 2` builds a wired rig; `ABR ▸ Setup ▸ 3` builds the test scene | Press Play, drive, **validate feel**, tune `DefaultVehicleProfile` |
 | 3 | Road + environment (spline / Cesium) | ⏳ interfaces stubbed | — | (next milestone) |
 | 4 | Weather / time-of-day | ⏳ `IEnvironmentState` + wetness coupling in place | — | (next) |
@@ -23,7 +23,7 @@ interfaces (`ISurfaceProvider`, `IEnvironmentState`, `IVehicleTelemetry`,
 without touching the vehicle core.
 
 ## Validate step 2 (do this now)
-1. Open the project in Unity (2022.3 LTS recommended).
+1. Open the project in Unity 2022.3.62f3 LTS.
 2. `ABR ▸ Setup ▸ 1 · Scaffold URP + Configs`
 3. `ABR ▸ Setup ▸ 3 · Build Physics Test Scene`  (this also runs the rig builder)
 4. Press **Play**. Drive with **W/A/S/D** (Space = handbrake). Press **Z/X** to raise/lower wetness.
